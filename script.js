@@ -93,7 +93,7 @@ const products = [
     // Only send necessary info for the robot
     const orderItems = cart.map(item => ({ id: item.id, name: item.name }));
   
-    fetch('http://<YOUR-RASPBERRY-PI-IP>:5000/api/order', {
+    fetch('http://<192.168.132.83>:5000/api/order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
