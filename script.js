@@ -88,27 +88,35 @@ const products = [
   }
   
   function placeOrder() {
-    if (cart.length === 0) return alert('Your cart is empty!');
-  
-    // Only send necessary info for the robot
-    const orderItems = cart.map(item => ({ id: item.id, name: item.name }));
-  
-    fetch('http://192.168.137.205:5000/api/order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ order: orderItems })
-    })
-    .then(response => {
-      if (response.ok) {
-        alert('Order sent to robot! 🤖');
-        cart = [];
-        updateCart();
-      } else {
-        alert('Failed to send order.');
-      }
-    })
+  if (cart.length === 0) return alert('Your cart is empty!');
+
+  // Send only product names
+  const orderItems = cart.map(item => item.name);
+
+  console.log("Sending to backend:", orderItems);  // Optional: debug log
+
+  fetch('http://192.168.137.205:5000/api/order', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ order: orderItems })
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Order sent to robot! 🤖');
+      cart = [];
+      updateCart();
+    } else {
+      alert('Failed to send order.');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Could not connect to robot server.');
+  });
+}
+
     .catch(error => {
       console.error('Error:', error);
       alert('Could not connect to robot server.');
