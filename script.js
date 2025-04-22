@@ -90,10 +90,7 @@ const products = [
   function placeOrder() {
   if (cart.length === 0) return alert('Your cart is empty!');
 
-  // Send only product names
-  const orderItems = cart.map(item => item.name);
-
-  console.log("Sending to backend:", orderItems);  // Optional: debug log
+  const orderItems = cart.map(item => item.name); // just send product names
 
   fetch('http://192.168.137.205:5000/api/order', {
     method: 'POST',
@@ -102,23 +99,19 @@ const products = [
     },
     body: JSON.stringify({ order: orderItems })
   })
-  .then(response => {
-    if (response.ok) {
-      alert('Order sent to robot! 🤖');
-      cart = [];
-      updateCart();
-    } else {
-      alert('Failed to send order.');
-    }
+  .then(response => response.json())
+  .then(data => {
+    console.log('✅ Order response:', data);
+    alert('Order placed successfully! 🎉');
+    cart = [];
+    updateCart();
   })
   .catch(error => {
-    console.error('Error:', error);
-    alert('Could not connect to robot server.');
+    console.error('❌ Error placing order:', error);
+    alert('Failed to place order.');
   });
 }
-
-  
-  // Optional: dark mode toggle
+// Optional: dark mode toggle
   function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const toggleBtn = document.getElementById('toggle-theme');
