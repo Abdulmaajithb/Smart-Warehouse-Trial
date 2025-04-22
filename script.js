@@ -117,11 +117,6 @@ const products = [
   });
 }
 
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Could not connect to robot server.');
-    });
-  }
   
   // Optional: dark mode toggle
   function toggleTheme() {
