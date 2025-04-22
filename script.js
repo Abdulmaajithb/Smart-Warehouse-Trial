@@ -92,7 +92,7 @@
 
       const orderItems = cart.map(item => ({ id: item.id, name: item.name }));
 
-      fetch('http://192.168.137.205:5000/api/order', {
+      fetch('https://192.168.137.205:5000/api/order', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
