@@ -131,3 +131,4 @@
   document.addEventListener('DOMContentLoaded', () => {
     displayProducts();
     document.getElementById('toggle-theme').addEventListener('click', toggleTheme);
+  });
