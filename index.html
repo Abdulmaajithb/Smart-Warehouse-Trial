@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Warehouse</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css"/>  
 </head>
 <body>
   <header>
@@ -34,6 +34,7 @@
   <footer>
     <p>&copy;  Smart Warehouse Final year project built by Electrical Engineers.</p>
   </footer>
+  
 <script>
   const products = [
     { id: 1, name: 'Notebook', price: 50.00, image: 'images/notebook.jpg', description: 'A standard notebook for daily use' },
@@ -132,7 +133,7 @@
 
     const orderItems = cart.map(item => item.name);
 
-    fetch('http://192.168.65.130:5000/api/order', {
+    fetch('http://192.168.137.205:5000/api/order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -169,6 +170,6 @@
     displayProducts();
     document.getElementById('toggle-theme').addEventListener('click', toggleTheme);
   });
-  </script>
+</script>
 </body>
 </html>
