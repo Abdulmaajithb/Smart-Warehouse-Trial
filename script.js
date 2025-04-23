@@ -88,31 +88,34 @@
     }
 
     function placeOrder() {
-      if (cart.length === 0) return alert('Your cart is empty!');
+  if (cart.length === 0) return alert('Your cart is empty!');
 
-      const orderItems = cart.map(item => ({ id: item.id, name: item.name }));
+  // Only send necessary info for the robot
+  const orderItems = cart.map(item => ({ id: item.id, name: item.name }));
 
-      fetch('https://192.168.137.205:5000/api/order', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ order: orderItems })
-})
-.then(response => {
-  if (response.ok) {
-    alert('Order sent to robot! 🤖');
-    cart = [];
-    updateCart();
-  } else {
-    alert('Failed to send order.');
-  }
-})
-.catch(error => {
-  console.error('Error:', error);
-  alert('Could not connect to robot server.');
-});
+  fetch('http://192.168.137.205:5000/api/order', { // Corrected URL
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ order: orderItems })
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Order sent to robot! 🤖');
+      cart = [];
+      updateCart();
+    } else {
+      response.json().then(data => {
+        alert('Failed to send order: ' + (data.error || 'Unknown error'));
+      });
     }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Could not connect to robot server.');
+  });
+}}
 
     function toggleTheme() {
       const body = document.body;
