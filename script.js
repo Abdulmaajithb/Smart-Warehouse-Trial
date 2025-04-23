@@ -115,7 +115,7 @@
     console.error('Error:', error);
     alert('Could not connect to robot server.');
   });
-}}
+}
 
     function toggleTheme() {
       const body = document.body;
